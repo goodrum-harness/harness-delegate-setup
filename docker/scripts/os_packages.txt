@@ -1,3 +1,7 @@
 unzip
 openssl
 git
+jq
+wget
+curl
+which

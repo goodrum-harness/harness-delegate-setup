@@ -24,6 +24,10 @@ endif
 build:
 	${DOCKER_COMMAND} build ${DEBUG_BUILD} -f ${WORKSPACE}/${DOCKERFILE} ${DOCKER_ARGS_CMD} -t ${IMAGE_NAME} ${WORKSPACE}
 
+.PHONY: push
+push:
+	${DOCKER_COMMAND} push ${IMAGE_NAME}
+
 .PHONY: debug
 debug:
 	$(eval ENTRYPOINT=--entrypoint sh)
