@@ -6,23 +6,26 @@ IMAGE=delegate
 TAG=latest
 IMAGE_NAME=${REPOSITORY}/${IMAGE}:${TAG}
 DOCKER_ARGS:=
-DOCKER_RUN=${DOCKER_COMMAND} run --rm -it -v ${PWD}:/project -v /Users:/Users -w /project $(ENTRYPOINT) ${IMAGE_NAME}
+DOCKER_RUN=${DOCKER_COMMAND} run --rm -it -v ${PWD}:/project -w /project $(ENTRYPOINT) ${IMAGE_NAME}
 
+# Load an existing Makefile.local with overrides or additional details.
 ifneq ("$(wildcard Makefile.local)", "")
 	include Makefile.local
 endif
 
+# Additional Dockerfile Build Arguments
 ifneq ($(DOCKER_ARGS),)
 	DOCKER_ARGS_CMD=${DOCKER_ARGS}
 endif
 
-ifeq ($(DEBUG_BUILD),)
-	DEBUG_BUILD=
+# Additional Docker build command flags - e.g --progress plain --no-cache
+ifeq ($(BUILD_FLAGS),)
+	BUILD_FLAGS=
 endif
 
 .PHONY: build
 build:
-	${DOCKER_COMMAND} build ${DEBUG_BUILD} -f ${WORKSPACE}/${DOCKERFILE} ${DOCKER_ARGS_CMD} -t ${IMAGE_NAME} ${WORKSPACE}
+	${DOCKER_COMMAND} build ${BUILD_FLAGS} -f ${WORKSPACE}/${DOCKERFILE} ${DOCKER_ARGS_CMD} -t ${IMAGE_NAME} ${WORKSPACE}
 
 .PHONY: push
 push:
