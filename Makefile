@@ -29,7 +29,7 @@ build:
 
 .PHONY: push
 push:
-	${DOCKER_COMMAND} push ${IMAGE_NAME}
+	${DOCKER_COMMAND} push --all-platforms ${IMAGE_NAME}
 
 .PHONY: debug
 debug:
