@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+set -eo pipefail
 echo "Welcome to the Harness Delegate Image builder"
 echo "#############################"
 echo
