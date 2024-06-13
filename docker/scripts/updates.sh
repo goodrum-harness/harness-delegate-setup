@@ -19,13 +19,6 @@ for package_name; do
     fi
 done
 echo
-echo
-echo "Install Base Packages"
-PACKAGES=`awk '{printf("%s ",$0)} END { printf "\n" }' os_packages.txt`
-microdnf install ${PACKAGES}
-microdnf clean all
-echo
-echo
 echo "Install Requested Packages"
 for package_name; do
     echo "Running script for ${package_name}"
