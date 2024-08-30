@@ -5,10 +5,17 @@ echo "#############################"
 echo
 echo "Current Base Image OS Version"
 cat /etc/redhat-release
+echo "Current Image Architecture"
+uname -m
 echo
 cd `dirname ${BASH_SOURCE[0]}`
 echo "Verifying Requested Package installation scripts"
-for package_name; do
+packages=$@
+if [[ ${packages} == "all" ]]; then
+    packages=`ls install*.sh | sed "s/install_//g"| sed "s/.sh$//g"`
+fi
+
+for package_name in $packages; do
     echo "Checking for script - ${package_name}"
     install_script="install_${package_name}.sh"
     if test -f "$install_script"; then
@@ -20,8 +27,8 @@ for package_name; do
 done
 echo
 echo "Install Requested Packages"
-for package_name; do
-    echo "Running script for ${package_name}"
+for package_name in $packages; do
+    echo "  Running script for ${package_name}"
     ./install_${package_name}.sh
 done
 echo "#############################"
