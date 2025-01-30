@@ -3,5 +3,5 @@ openssl
 git
 jq
 wget
-curl
+curl-minimal
 which
