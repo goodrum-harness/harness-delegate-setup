@@ -31,6 +31,9 @@ endif
 ifeq ($(DOCKER_TAG),)
 	DOCKER_TAG=
 endif
+ifeq ($(BUILD_TAG),)
+	BUILD_TAG=${DOCKER_TAG}
+endif
 ifeq ($(DOCKER_ENV),)
 	DOCKER_ENV:=
 endif
@@ -42,7 +45,7 @@ ifeq ($(INSTALL_PACKAGES),)
 endif
 # Additional Dockerfile Build Arguments
 ifeq ($(DOCKER_ARGS),)
-	DOCKER_ARGS_CMD=--build-arg "TAG=${DOCKER_TAG}" --build-arg "ADDITIONAL_PACKAGES=${INSTALL_PACKAGES}"
+	DOCKER_ARGS_CMD=--build-arg "TAG=${BUILD_TAG}" --build-arg "ADDITIONAL_PACKAGES=${INSTALL_PACKAGES}"
 endif
 ifeq ($(PROJECT_DIR),)
 	PROJECT_DIR:=${ROOT_DIR}/docker
